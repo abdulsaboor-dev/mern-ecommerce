@@ -43,13 +43,14 @@ const controllerAddProduct = async (req, res) => {
 
 const controllerGetAllProducts = async (req, res) => {
   try {
+    
     const allProducts = await Products.find({});
     const totalProducts = allProducts.length;
 
     // get record from category through populate query and show only name from category table & - sign is use incldue property from object.
     //const allProductWithDetail = await Products.find().populate("category"); // only get from category detail without conditions
     const productRecord = await Products.find()
-      .populate({ path: "category", select: "name -_id" })
+      .populate({ path: "category", select: "name -_id" }) // ("category")
       .skip()
       .sort({ name: 1 });
     //console.log(productRecord);
@@ -97,5 +98,9 @@ const getProductsByPagination = async (req, res) => {
     console.log("eror");  
   }
 };
+
+const productsFilterByNamePrice = async (req, res) => { 
+  
+}
 
 module.exports = { controllerAddProduct, controllerGetAllProducts, getProductsByPagination };
